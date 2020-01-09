@@ -32,7 +32,7 @@ it('tests a mock standalone function', () => {
    
 ```
 
-The jest mock object holds tons of useful information for assertions, see a more detailed list [here](https://jestjs.io/docs/en/mock-functions#mock-property)
+The jest mock object holds tons of useful information for assertions, see a more detailed list [here](https://jestjs.io/docs/en/mock-functions#mock-property).
 
 
 #### Functions on an Object or From an Import
