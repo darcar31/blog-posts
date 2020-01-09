@@ -181,3 +181,11 @@ Keep in mind that the ordering of this map matters; if multiple regular expressi
 ## How great!
 
 Like I mentioned before: Jest is a robust testing framework. Like all things vast and powerful, I've found that it can be easy to find one feature that works for most of my cases, and forget to venture out. If you made it this far, hopefully, you learned a new piece of Jest functionality that can help you better create whatever level of testing isolation best fits your app.
+
+Helpful Links:
+- [https://jestjs.io/docs/en/mock-functions][Function Mocking]
+- [https://jestjs.io/docs/en/manual-mocks][Module Mocking]
+- [https://jestjs.io/docs/en/configuration#modulenamemapper-objectstring-string][Jest Configuration Options]
+
+
+
