@@ -1,0 +1,1 @@
+export const largeFrameworkFunction = () => "fake large framework file"

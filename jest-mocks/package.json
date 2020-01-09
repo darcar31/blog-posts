@@ -1,0 +1,18 @@
+{
+  "name": "jest-mocks",
+  "version": "1.0.0",
+  "description": "Code examples for blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0"
+  }
+}
