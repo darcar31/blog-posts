@@ -1,4 +1,4 @@
-# Mocking Functionality in Jest at Different Levels
+# Mocking Functionality in Jest at Different Scopes 
 
 Jest is a robust framework for testing in JavaScript that is jam-packed with features. Within the Jest documentation, lies instructions for mocking out functionality for whatever level of test isolation you are trying to achieve. Getting lost in the docs can be easy; in this article, I walk through how to take advantage of Jest to mock out anything from individual functions within a single test, to entire JavaScript files.
 
