@@ -1,26 +1,27 @@
 # Building a Slack App with Express and the Node-SDK
 
-I recently tried to build a Slack App to learn about the process and the Slack community. I very quickly found myself a bit overwhelmed. The Slack API has a massive amount of documentation, and it can be easy to get lost and forget what you were even looking for. In this article, I have pooled together many Slack documentation resources to hopefully build a single coherent resource.
+I recently tried to build a Slack App to learn about the process and technology and I very quickly found myself a bit overwhelmed. The Slack API is full-featured and heavily documented, which means it can be easy to get lost wandering through the massive amounts of information. This article pools together many different docs and blogs to hopefully build a single coherent resource.
 
-In this post, we will walk through a tutorial that teaches you how to use the Slack Node SDK with Express to build a custom Slack Bot Application.  We will hook into the Slack Events API, the Interactions API, learn how to open and interact with modals, and how to use Slack Block Kit.
- 
-Note: The Slack API is going through revisions and is often changing, so do notice of the date of this writing.
- 
-In this tutorial, we will build a demo application that goes through the following flow:
- 
+In this post, I walk through how to develop a custom Slack Bot Application with the Slack Node SDK and Express We will:
+- Register and configure a Slack Application from the [Slack Developer site](https://api.slack.com/).
+- Create an [Express Server](https://expressjs.com/) and register it with your Slack App.
+- Use the [Node SDK Events API](https://slack.dev/node-slack-sdk/events-api) to listen to app mentions.
+- Use the [Node SDK Web Client](https://slack.dev/node-slack-sdk/web-api) to send messages to a channel from our bot.
+- Use the [Slack Block Kit](https://api.slack.com/block-kit) and [Block Kit Builder](https://api.slack.com/tools/block-kit-builder) to create interactive messages.
+- Use [Node SDK Interactive Messages API](https://slack.dev/node-slack-sdk/interactive-messages) to listen to the interactive actions.
+- User Slack Block Kit and Block Kit Builder to create a [modal](https://api.slack.com/surfaces/modals) with an interactive form with validation rules.
+
+This tutorial builds a demo application that goes through the following flow:
  1. The App Bot listens for any mentions of itself.
  2. Once mentioned, the bot will respond to the mention with a prompt.
  3. If accepted, the prompt will open a modal with a form. The form will contain a dropdown and a text input. The form will be validated.
  4. The submitted valid form information will log to the console! YAY!
  
+***Note: The Slack API is going through revisions and is often changing, so do notice of the date of this writing.**
+ 
 ## Setup and Configuration
-Slack Apps are highly configurable and customizable, and take a bit of initial bootstrapping to get going. 
+Slack Apps are highly configurable and customizable, so they take a bit of initial bootstrapping to get going. 
   
-### Introducing the Node SDK
-Slack has a multitude of SDKs available for developers, and I personally found it tricky to figure out which did what and why I might use them. Each tool has its own set of documentation, so it is important to make sure you are aware of the specific information you are referring to.
-
-One of the developer tools includes Bolt, a lightweight framework that allows you to quickly build Slack apps with limited functionality. Bolt is also developed in JavasScript, so it can be easy to get the documentation confused with building a custom Node server. But, in this tutorial, we will focus solely on the [Slack Node SDK.] (https://github.com/slackapi/node-slack-sdk)
-
 ### Creating a Slack Application & Bot
 
 The first thing you need to do is to register your app with Slack at the [Slack Developer Site](https://api.slack.com/). Once you've created your Slack developer login, you will be able to `Create New App` in the `Your Apps` section.
@@ -29,24 +30,36 @@ You will be prompted to enter a Slack Workspace that you have access to as a dev
 
 // todo prompt of slack workspace
 
-Next, we need to create a bot for our App. Go to `Bot Users` and click `Add Bot User`. Create a display name and user name for you Slack bot, and click `Add Bot User`.
+Next, we need to create a bot for our App. 
+
+- Go to `Bot Users`
+- Click `Add Bot User`
+- Create a display name and user name for you Slack bot
+- Click `Add Bot User`.
+  
+  
+### Introducing the Node SDK
+Slack has a multitude of SDKs available for developers, and I personally found it tricky to figure out which did what and why I might use them. 
+
+One of the developer tools includes [Bolt](https://slack.dev/bolt/concepts), a lightweight framework that allows you to quickly build Slack apps with limited functionality. Bolt is also developed in JavasScript, so it can be easy to get the documentation confused with building a custom Node server. But, in this tutorial, we will focus solely on the [Slack Node SDK.] (https://github.com/slackapi/node-slack-sdk). The Slack Node SDK is a collection of packages that give you the ability to interact with just about everything in the Slack platform.
+
+Note: Each tool has its own set of documentation that tends to look similar to each other, so it is important to be aware of what specific docs you are looking at.
 
 ### Getting Your Node Server Installed in a Slack Workspace
 
-In order to install a Node Server as a bot in a Workspace, your app must be enabled for at least one permissions scope. To set these scopes, go to `OAuth & Permissions`, then scroll down to `Scopes`.
+In order to install a Node Server as a bot in a Workspace, your app must be enabled for at least one [permissions scope](https://api.slack.com/docs/oauth-scopes). To set these scopes, go to `OAuth & Permissions`, then scroll down to `Scopes`.
 
 Our demo application will need three scopes: `bot` `chat:write:bot` and `users:read`
 
 // todo insert photo here of scopes 
 
-With these permissions, you can scroll back up to `OAuth Tokens & Redirect URLs` and click `Install App to Workspace`. Once accepted, your bot is installed, and you will have an `OAuth Access Token` and a `Bot User OAuth Access Token`. We will use these tokens later.
-
+With these permissions, you can scroll back up to `OAuth Tokens & Redirect URLs` and click `Install App to Workspace`. Once accepted, your bot is installed, and you will have an `OAuth Access Token` and a `Bot User OAuth Access Token`. We will use these tokens later on.
  
 ### Starting our Node Server
 
 Once you have registered a Slack App, let's begin building out our Node server. As we add functionality to our server, we will adjust the configuration for our app.
 
-To start, initialize a new npm repository and create an `app.js file`. In this file, we are going to spin up a lightweight Express server.
+To start, initialize a new npm repository and create an `app.js file`. In this file, we are going to spin up a lightweight [Express server](https://expressjs.com/).
 
 ```
 const express = require('express');
@@ -65,8 +78,8 @@ app.listen(port, function() {
 ## Listening to App Mentions
 The first piece of functionality we are going to build is the bot's ability to listen for mentions.
 
-### Introducing the Slack Events API
-For this: we need to set up our server to receive events with the [Slack Events API](https://api.slack.com/events-api). To use to [Slack Events API for Node SDK](https://slack.dev/node-slack-sdk/events-api),  install `@slack/events-api`:
+### Introducing the Node SDK Events API
+For this: we need to set up our server to receive events with the [Slack Events API](https://api.slack.com/events-api). To use the [Node SDK Slack Events API](https://slack.dev/node-slack-sdk/events-api),  install `@slack/events-api`:
 
 `npm add @slack/events-api`
 
@@ -139,7 +152,7 @@ app.use('/slack/events', slackEvents.expressMiddleware())
 
 Note: Make sure to install this middleware above the body-parser middleware.
 
-With slackEvents installed, we are free to use it to listen to bot mentions.
+With slackEvents installed, we are free to use it to listen to bot mentions with the [app mention event](https://api.slack.com/events/app_mention).
 
 ```
 slackEvents.on('app_mention', async (event) => {
@@ -157,7 +170,7 @@ Now, when you go to a channel in your development workspace and @ mention your b
 
 Next, let's add some logic to have our bot respond to the mention. 
 
-### Introducing the Slack Node SDK Web Client
+### Introducing the Node SDK Web Client
 
 To emit event messages back to Slack, we need to use the [Slack Node SDK Web API](https://github.com/slackapi/node-slack-sdk#posting-a-message-with-web-api) located in `@slack/web-api`. 
 
@@ -171,16 +184,15 @@ const token = process.env.SLACK_BOT_TOKEN
 const webClient = new WebClient(token)
 ```
 
-This webClient instance has a chat object, which allows you to post a message block event back to slack.
+This webClient instance has a chat object, which allows you to [post a message block event](https://api.slack.com/methods/chat.postMessage) back to slack.
 
 `web.chat.postMessage(messageBlock)`
 
 The docs for the generic (non-Node specific) Web API are [here](https://api.slack.com/methods) and contain a list of available methods.
 
-### Introducing Block Kit and the Slack Interactions API
+### Introducing Block Kit and the Slack Interactions API for Node SDK
 
-What exactly is this message block I am posting? Well... Slack provides a component framework called `Block Kit`. Block Kit allows you to put together JSON "blocks."
-that represent visual and interactive components. Each block is made up of [Block Elements](https://api.slack.com/reference/block-kit/block-elements). A full list of blocks can be found [here](https://api.slack.com/reference/block-kit/blocks).
+What exactly is this message block I am posting? Well... Slack provides a component framework called [Block Kit](https://api.slack.com/block-kit). Block Kit allows you to put together JSON "blocks" that represent visual and interactive components. Each block is made up of [Block Elements](https://api.slack.com/reference/block-kit/block-elements). A full list of blocks can be found [here](https://api.slack.com/reference/block-kit/blocks).
 
 Slack also provides a handy tool called the [Block Kit Builder](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20Assistant%20to%20the%20Regional%20Manager%20Dwight!%20*Michael%20Scott*%20wants%20to%20know%20where%20you%27d%20like%20to%20take%20the%20Paper%20Company%20investors%20to%20dinner%20tonight.%5Cn%5Cn%20*Please%20select%20a%20restaurant%3A*%22%7D%7D%2C%7B%22type%22%3A%22divider%22%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Farmhouse%20Thai%20Cuisine*%5Cn%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%201528%20reviews%5Cn%20They%20do%20have%20some%20vegan%20options%2C%20like%20the%20roti%20and%20curry%2C%20plus%20they%20have%20a%20ton%20of%20salad%20stuff%20and%20noodles%20can%20be%20ordered%20without%20meat!!%20They%20have%20something%20for%20everyone%20here%22%7D%2C%22accessory%22%3A%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fs3-media3.fl.yelpcdn.com%2Fbphoto%2Fc7ed05m9lC2EmA3Aruue7A%2Fo.jpg%22%2C%22alt_text%22%3A%22alt%20text%20for%20image%22%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Kin%20Khao*%5Cn%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%201638%20reviews%5Cn%20The%20sticky%20rice%20also%20goes%20wonderfully%20with%20the%20caramelized%20pork%20belly%2C%20which%20is%20absolutely%20melt-in-your-mouth%20and%20so%20soft.%22%7D%2C%22accessory%22%3A%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fs3-media2.fl.yelpcdn.com%2Fbphoto%2Fkorel-1YjNtFtJlMTaC26A%2Fo.jpg%22%2C%22alt_text%22%3A%22alt%20text%20for%20image%22%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Ler%20Ros*%5Cn%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%202082%20reviews%5Cn%20I%20would%20really%20recommend%20the%20%20Yum%20Koh%20Moo%20Yang%20-%20Spicy%20lime%20dressing%20and%20roasted%20quick%20marinated%20pork%20shoulder%2C%20basil%20leaves%2C%20chili%20%26%20rice%20powder.%22%7D%2C%22accessory%22%3A%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fs3-media2.fl.yelpcdn.com%2Fbphoto%2FDawwNigKJ2ckPeDeDM7jAg%2Fo.jpg%22%2C%22alt_text%22%3A%22alt%20text%20for%20image%22%7D%7D%2C%7B%22type%22%3A%22divider%22%7D%2C%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Farmhouse%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22click_me_123%22%7D%2C%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Kin%20Khao%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22click_me_123%22%7D%2C%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Ler%20Ros%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22click_me_123%22%7D%5D%7D%5D) 
 This builder provides a drag and drop UI that generates JSON blocks from a live example.
@@ -229,8 +241,7 @@ Note: In general, any identifying or interaction specific JSON is not included i
 
 ### Sending Back a Message Block
 
-Now that we have our message blocks. We can send them through the `postMessage` function. In order to correctly post a message,
-we need to include the channel where we want to send it. We can get that information from the mention event. 
+Now that we have our message blocks. We can send them through the `postMessage` function. In order to correctly post a message, we need to include the channel to target. We can get that information from the [mention event](https://api.slack.com/events/app_mention). 
 
 ```
 
@@ -245,13 +256,13 @@ slackEvents.on('app_mention', async (event) => {
 });
 ```
 
-## Introducing Node SDK Slack Interactions 
+## Introducing Node SDK Slack Interactive Messages API
 
 We are making progress!!
 
 Now that our bot can send back a message that contains a button, we need to handle the behavior for when the user clicks it.
 
-This of course requires... another package. This time we need the [interactions adapters](https://slack.dev/node-slack-sdk/interactive-messages) from `@slack/interactive-messages`. We can install the adapter similar to the Events API adapter.
+This of course requires... another package. This time we need the [interactions adapters](https://slack.dev/node-slack-sdk/interactive-messages) from `@slack/interactive-messages`. Similarly to the events adapter, we need to provide a node path where interaction actions can be accepted on our server. Many Slack docs suggest using `/slack/actions`, so that is what I've used here.
 
 ```
 const { createMessageAdapter } = require('@slack/interactive-messages');
@@ -261,9 +272,16 @@ const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
 app.use('/slack/actions', slackInteractions.expressMiddleware())
 ```
 
+
+// todo, you have to register this route somewhere? or is it the default?
+
+### Registering Your Actions Route with Slack
+
+Much like configuring events, we need to tell Slack about our path for accepting interactive actions. In you App Configuration panel, navigate to `Interactive Messages` and fill in the `Request URL`. In my case, it would be `http://13605143.ngrok.io/slack/actions`.
+
 ### Listening to an Interaction
 
-Once we have the slackInteraction middleware installed, we can use the `action_id` on our button to listen to interaction events.
+Once we have the slackInteraction middleware installed and our path is registered with Slack, we can use the `action_id` on our button to listen to interaction events.
 
 ``` 
 slackInteractions.action({ actionId: 'open_modal_button' }, async (payload) => {
@@ -283,9 +301,9 @@ According to the [Node SDK Docs](https://github.com/slackapi/node-slack-sdk/blob
 
 ## Building a Modal
 
-Woohoo! We have all the packages we  need moving forward, and are ready to [build our modal](https://api.slack.com/surfaces/modals/using).
+Woohoo! We have all the packages we need moving forward, and are ready to [build our modal](https://api.slack.com/surfaces/modals/using).
 
-Note: Slack recently deprecated their old dialog blocks called `dialog` and replaced them with their new blocks `modals`.
+Note: Slack recently deprecated their old dialog blocks called `dialog` and replaced them with their new blocks, `modals`.
 Some of their documentation has yet to be updated, so make sure if you are looking for information about modals, you are reading about `modals` and not `dialogs`.
 
 Again, using the Block Kit Builder, I've designed a modal that looks like this: 
@@ -389,7 +407,7 @@ It allows the user to choose a cute animal category from a static list, and crea
 </p>
 </details> 
 
-Again, the Block Kit Builder doesn't put any identifying information on our blocks. To handle a modal submit, we must add a `callback` to our payload.
+Like before, the Block Kit Builder doesn't put any identifying information on our blocks. To handle a modal submit, we must add a `callback` to our payload.
 We also need to put a `block_id` on any block we want to get input data out of later, and an `action_id` that matches to the input element within the block.
 
 I have added the following ids:
@@ -400,7 +418,7 @@ I have added the following ids:
 - Input Element: `cute_animal_name_element`
 
 ### Handling Modal Submit
-With our callback on the block payload, we can again use the interactions API to listen for a modal submission.
+With our callback on the block payload, we can again use the Interactive Messages API to listen for a [modal submission](https://api.slack.com/reference/interaction-payloads/views).
 
 ``` 
 slackInteractions.viewSubmission('cute_animal_modal_submit' , async (payload) => {
@@ -425,7 +443,7 @@ Slack inputs are handy because they have some validation already built-in. By de
 
 To perform [custom validation](https://api.slack.com/surfaces/modals/using#displaying_errors), you return an error from the viewSubmission event.
 
-Here, I invalidate the cute animal name input, if the name only has one character.
+Here, I invalidate the cute animal name input, if the name has only one character.
 
 ``` 
 slackInteractions.viewSubmission('cute_animal_modal_submit' , async (payload) => {
