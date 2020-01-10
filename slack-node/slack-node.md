@@ -1,4 +1,4 @@
-# Building a Slack App with Express and the Node-SDK
+# Building a Slack App with Express and the Node SDK
 
 I recently tried to build a Slack App to learn about the process and technology and I very quickly found myself a bit overwhelmed. The Slack API is full-featured and heavily documented, which means it can be easy to get lost wandering through the massive amounts of information. This article pools together many different docs and blogs to hopefully build a single coherent resource.
 
