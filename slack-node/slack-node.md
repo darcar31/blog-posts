@@ -14,8 +14,8 @@ In this post, I walk through how to develop a custom Slack Bot Application with 
 This tutorial builds a demo application that goes through the following flow:
  1. The App Bot listens for any mentions of itself.
  2. Once mentioned, the bot will respond to the mention with a prompt.
- 3. If accepted, the prompt will open a modal with a form. The form will contain a dropdown and a text input. The form will be validated.
- 4. The submitted valid form information will log to the console! YAY!
+ 3. If accepted, the prompt will open a modal with a form. The form will contain a dropdown and a text input. On submit, the form will be validated.
+ 4. The submitted valid form data will log to the console! YAY!
  
 ***Note: The Slack API is going through revisions and is often changing, so do notice of the date of this writing.**
  
