@@ -119,7 +119,7 @@ In this status message, `http://13605143.ngrok.io` is now being forwarded to `ht
 
 Note: the forwarded URL is dynamic and changes every time you run the ngrok command. 
 
-Next, We need to create a path to be the location that accepts the events on our Express server. Many of the Slack docs recommend using `/slack/events`. So in this example, my full URL would be
+Next, we need to create a path to be the location that accepts the events on our Express server. Many of the Slack docs recommend using `/slack/events`. So in this example, my full URL would be
 http://13605143.ngrok.io/slack/events.
 
 ### Getting Ready to Respond to the Slack Challenge
