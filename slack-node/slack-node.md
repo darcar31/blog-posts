@@ -39,9 +39,9 @@ Next, we need to create a bot for our App.
   
   
 ### Introducing the Node SDK
-Slack has a multitude of SDKs available for developers, and I personally found it tricky to figure out which did what and why I might use them. 
+Slack has a [multitude of SDKs](https://api.slack.com/tools) available for developers, and I personally found it tricky to figure out which did what and why I might use them. 
 
-One of the developer tools includes [Bolt](https://slack.dev/bolt/concepts), a lightweight framework that allows you to quickly build Slack apps with limited functionality. Bolt is also developed in JavasScript, so it can be easy to get the documentation confused with building a custom Node server. But, in this tutorial, we will focus solely on the [Slack Node SDK.] (https://github.com/slackapi/node-slack-sdk). The Slack Node SDK is a collection of packages that give you the ability to interact with just about everything in the Slack platform.
+One of the developer tools includes [Bolt](https://slack.dev/bolt/concepts), a lightweight framework that allows you to quickly build Slack apps with limited functionality. Bolt is also developed in JavasScript, so it can be easy to get the documentation confused with building a custom Node server. But, in this tutorial, we will focus solely on the [Slack Node SDK.] (https://github.com/slackapi/node-slack-sdk). The Slack Node SDK is a collection of packages that give you the ability to interact with just about everything in the Slack platform, without having to explicity build out RESTful capabilities. 
 
 Note: Each tool has its own set of documentation that tends to look similar to each other, so it is important to be aware of what specific docs you are looking at.
 
