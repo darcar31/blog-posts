@@ -471,7 +471,7 @@ slackInteractions.viewSubmission('cute_animal_modal_submit' , async (payload) =>
 
 ## Conclusion
 
-Wow... we made it, what a wild journey. Overall, I've found the Slack Developer API to be quite powerful, and love the ability to build metadata-driven views with Block Kit.
+Wow... we made it, what a wild journey. Overall, I've found the Slack Developer API to be quite powerful, and I love the ability to build metadata-driven views with Block Kit.
 With great power, comes great documentation, and digging through all of the potential functionality can be a little daunting. I hope this article was able to consolidate some of the critical pieces of information and makes it easier for you to start your own Slack App with the Node SDK and Express!
 
 
