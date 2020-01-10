@@ -92,7 +92,9 @@ Once ngrok is installed and on your `$PATH`, we are going to tunnel our developm
 
 `ngrok http 3000`
 
-Once running, you should see an output like this:
+<details>
+<summary>Once running, you should see an output like this:</summary>
+<p>
 
 ```
 daria$ ngrok http 3000
@@ -109,6 +111,9 @@ Forwarding                    https://13605143.ngrok.io -> http://localhost:3000
 Connections                   ttl     opn     rt1     rt5     p50     p90
                               105     0       0.00    0.00    5.01    5.34
 ```
+</p>
+</details>
+
 
 In this status message, `http://13605143.ngrok.io` is now being forwarded to `http://localhost:3000`.
 
