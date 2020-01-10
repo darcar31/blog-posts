@@ -101,7 +101,7 @@ import * as utils from "./utils"
 
 it('tests with a mock impl', () => {
   let mockCallbackFunction = jest.fn()
-  jest.spyOn(utils, 'doUtilWithValue').mockImplementation(() => "fake method implementation" )
+  jest.spyOn(utils, 'doUtilWithValue').mockImplementation(() => "fake method implementation")
 
   myGreatFunctionWithUtilReturn(mockCallbackFunction)
 
@@ -117,17 +117,18 @@ Sometimes we have entire modules that we want to mock out for all the tests in a
 
 ```
 jest.mock('./utils', () => ({
-  doUtil: () => {},
-  doUtilWithValue: () => "fake utils module"
+  doUtil: jest.fn(),
+  doUtilWithValue: jest.fn().returnValue("fake utils module")
 }))
 ``` 
 
 The first argument is the module to mock, and the second is a factory that returns the mock implementation.
 
-Notes: 
-    1. jest.mock is hoisted above all import statements to ensure the mock happens first.
-    2. When using default exports, `__esModule: true` must be set on the returned object.
-    3. Only the test file that calls this jest.mock is affected.
+Notes:
+ 
+1. jest.mock is hoisted above all import statements to ensure the mock happens first.
+2. When using default exports, `__esModule: true` must be set on the returned object.
+3. Only the test file that calls this jest.mock is affected.
 
 ## Mocking Modules for the Entire Framework
 Perhaps you have a third party module you want to mock for your entire test framework. Jest also provides you a way to do this.
@@ -148,7 +149,7 @@ This setup file is just another JavaScript file that runs before any tests execu
     (jest.setup.js)
 
     jest.mock('thirdPartyUtil', () => ({
-      commonlyUsedUtilFunction: () => "fake third party"
+      commonlyUsedUtilFunction: jest.fn().returnValue("fake third party")
     }))
 
 ```
