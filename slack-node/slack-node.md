@@ -45,7 +45,7 @@ One of the developer tools includes [Bolt](https://slack.dev/bolt/concepts), a l
 
 The Slack Node SDK is a collection of packages that give you the ability to interact with just about everything in the Slack platform, without having to explicity build out RESTful capabilities. For our purposes, we need 3 of the 5 available packages:
 - [Events API](https://slack.dev/node-slack-sdk/events-api) `@slack/events-api`
-- [Web API](https://slack.dev/node-slack-sdk/web-api)`@slack/web-api`
+- [Web API](https://slack.dev/node-slack-sdk/web-api) `@slack/web-api`
 - [Interactive Messages API](https://slack.dev/node-slack-sdk/interactive-messages) `@slack/interactive-messages`
 
 Note: Each tool has its own set of documentation that tends to look similar to each other, so it is important to be aware of what specific docs you are looking at.
