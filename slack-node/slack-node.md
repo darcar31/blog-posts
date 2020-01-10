@@ -2,7 +2,7 @@
 
 I recently tried to build a Slack App to learn about the process and technology and I very quickly found myself a bit overwhelmed. The Slack API is full-featured and heavily documented, which means it can be easy to get lost wandering through the massive amounts of information. This article pools together many different docs and blogs to hopefully build a single coherent resource.
 
-In this post, I walk through how to develop a custom Slack Bot Application with the Slack Node SDK and Express We will:
+In this post, I walk through how to develop a custom Slack Bot Application with the Slack Node SDK and Express. We will:
 - Register and configure a Slack Application from the [Slack Developer site](https://api.slack.com/).
 - Create an [Express Server](https://expressjs.com/) and register it with your Slack App.
 - Use the [Node SDK Events API](https://slack.dev/node-slack-sdk/events-api) to listen to app mentions.
