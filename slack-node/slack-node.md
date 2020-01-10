@@ -13,13 +13,15 @@ In this tutorial, we will build a demo application that goes through the followi
  3. If accepted, the prompt will open a modal with a form. The form will contain a dropdown and a text input. The form will be validated.
  4. The submitted valid form information will log to the console! YAY!
  
-## Introducing the Node SDK
-
-Slack has a multitude of SDKs available for developers, and I personally found it tricky to figure out which did what and why I might use them. Each tool has its own set of documentation, so it is crucial to make sure you are aware of which set of rules you are looking at.
+## Setup and Configuration
+Slack Apps are highly configurable and customizable, and take a bit of initial bootstrapping to get going. 
+  
+### Introducing the Node SDK
+Slack has a multitude of SDKs available for developers, and I personally found it tricky to figure out which did what and why I might use them. Each tool has its own set of documentation, so it is important to make sure you are aware of the specific information you are referring to.
 
 One of the developer tools includes Bolt, a lightweight framework that allows you to quickly build Slack apps with limited functionality. Bolt is also developed in JavasScript, so it can be easy to get the documentation confused with building a custom Node server. But, in this tutorial, we will focus solely on the [Slack Node SDK.] (https://github.com/slackapi/node-slack-sdk)
- 
-## Creating a Slack Application & Bot
+
+### Creating a Slack Application & Bot
 
 The first thing you need to do is to register your app with Slack at the [Slack Developer Site](https://api.slack.com/). Once you've created your Slack developer login, you will be able to `Create New App` in the `Your Apps` section.
 
@@ -29,7 +31,7 @@ You will be prompted to enter a Slack Workspace that you have access to as a dev
 
 Next, we need to create a bot for our App. Go to `Bot Users` and click `Add Bot User`. Create a display name and user name for you Slack bot, and click `Add Bot User`.
 
-## Getting Your Node Server Installed in a Slack Workspace
+### Getting Your Node Server Installed in a Slack Workspace
 
 In order to install a Node Server as a bot in a Workspace, your app must be enabled for at least one permissions scope. To set these scopes, go to `OAuth & Permissions`, then scroll down to `Scopes`.
 
@@ -40,7 +42,7 @@ Our demo application will need three scopes: `bot` `chat:write:bot` and `users:r
 With these permissions, you can scroll back up to `OAuth Tokens & Redirect URLs` and click `Install App to Workspace`. Once accepted, your bot is installed, and you will have an `OAuth Access Token` and a `Bot User OAuth Access Token`. We will use these tokens later.
 
  
-## Lets Start our Node Server
+### Starting our Node Server
 
 Once you have registered a Slack App, let's begin building out our Node server. As we add functionality to our server, we will adjust the configuration for our app.
 
