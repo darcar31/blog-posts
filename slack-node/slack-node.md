@@ -220,7 +220,7 @@ This webClient instance has a chat object, which allows you to [post a message b
 
 The docs for the generic (non-Node specific) Web API are [here](https://api.slack.com/methods) and contain a list of available methods.
 
-### Introducing Block Kit and the Slack Interactions API for Node SDK
+### Introducing Slack Block Kit 
 
 What exactly is this `messageBlock` I am posting? Well... Slack provides a component framework called [Block Kit](https://api.slack.com/block-kit). Block Kit allows you to put together JSON "blocks" that represent visual and interactive components. Blocks are made up of [Block Elements](https://api.slack.com/reference/block-kit/block-elements). You can find the full list of blocks [here](https://api.slack.com/reference/block-kit/blocks).
 
@@ -535,4 +535,5 @@ slackInteractions.viewSubmission('cute_animal_modal_submit' , async (payload) =>
 Wow... we made it, what a wild journey. Overall, I've found the Slack Developer API to be quite powerful, and I love the ability to build metadata-driven views with Block Kit.
 With great power, comes great documentation, and digging through all of the potential functionality can be a little daunting. I hope this article was able to consolidate some of the critical pieces of information and makes it easier for you to start your own Slack App with the Node SDK and Express!
 
+[Check our the entire code example on my github](https://github.com/darcar31/blog-posts/tree/master/slack-node)
 
