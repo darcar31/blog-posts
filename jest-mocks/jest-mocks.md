@@ -130,7 +130,7 @@ Notes:
 2. When using default exports, `__esModule: true` must be set on the returned object.
 3. Only the test file that calls this jest.mock is affected.
 
-Now my tests inside the same test file will have the mocked utils functionality:
+Now, the tests inside the same file will have the mocked utils functionality:
 
 ``` 
 import {myGreatFunctionWithUtilReturn} from "./functions"
@@ -187,7 +187,7 @@ it('tests setup file mock', () => {
 
  **Important reminder to be a responsible mock owner:**
  
- If you create Jest mocks that exist outside the scope of a single test like either of the module mocks discussed above, it is worth noting that the jest.mock object associated with those mocks is not cleared between test runs unless explicitly done so in an afterEach method or with the clearMocks config options. If you are expecting to make test level assertions on broadly scoped mocks, be aware of how to clear your mocks.
+ If you create Jest mocks that exist outside the scope of a single test like either of the module mocks discussed above, it is worth noting that the `jest.mock` object associated with those mocks is not cleared between test runs unless explicitly done so in an afterEach method or with the clearMocks config options. If you are expecting to make test level assertions on broadly scoped mocks, be aware of how to clear your mocks.
 
 ## Mocking Entire Javascript Files
 
