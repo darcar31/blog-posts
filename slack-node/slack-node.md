@@ -28,8 +28,6 @@ The first thing you need to do is to register your app with Slack at the [Slack 
 
 You will be prompted to enter a Slack Workspace that you have access to as a development space. This workspace represents your dev environment; your bot will be deployed here for testing and experimenting.
 
-// todo prompt of slack workspace
-
 Next, we need to create a Bot User for our App. 
 
 - Go to `Bot Users`
@@ -43,7 +41,7 @@ To install a bot into a Workspace, the app must be enabled for at least one [per
 
 Our demo application will need three scopes: `bot` `chat:write:bot` and `users:read`
 
-// todo insert photo here of scopes 
+![Bot permissions scopes in slack app manager](https://github.com/darcar31/blog-posts/blob/master/slack-node/resources/bot-scopes.png "Bot Permissions Scopes")
 
 With these permissions, you can scroll back up to `OAuth Tokens & Redirect URLs` and click `Install App to Workspace`. Once accepted, your bot is installed, and you receive an `OAuth Access Token` and a `Bot User OAuth Access Token`. We will use these tokens later on.
   
@@ -233,7 +231,8 @@ It is important to note that at the time of this writing, some block elements ca
 
 For our bot message response, I want it to be a simple message that contains a button that launches a modal:
 
-// TODO bot message response image
+![Bot message response with inviting text and launch button](https://github.com/darcar31/blog-posts/blob/master/slack-node/resources/bot-message.png "Bot Message Design")
+
 
 <details>
 <summary>Using the Block Kit Builder, I've translated this design into the following JSON:</summary>
@@ -346,9 +345,10 @@ Woohoo! We have all the packages we need moving forward, and are ready to [build
 Note: Slack recently deprecated their old dialog blocks called `dialog` and replaced them with their new blocks, `modals`.
 Some of their documentation has yet to be updated, so make sure if you are looking for information about modals, you are reading about `modals` and not `dialogs`.
 
-Again, using the Block Kit Builder, I've designed a modal that looks like this: 
+Again, using the Block Kit Builder, I've designed this modal: 
 
-//TODO image of modal
+![Modal with dropdown and input elements](https://github.com/darcar31/blog-posts/blob/master/slack-node/resources/modal.png "Modal Design")
+
 
 It allows the user to choose a cute animal category from a static list, and create a name for that cute animal.
 
