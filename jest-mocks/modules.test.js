@@ -1,14 +1,14 @@
-import {doSomethingWithReturn} from "./index"
+import {myGreatFunctionWithUtilReturn} from "./functions"
 
 jest.mock('./utils', () => ({
   doUtil: () => {},
   doUtilWithValue: () => "fake utils module"
 }))
 
-it('tests with a return value', () => {
+it('tests with a fake module', () => {
   let mockCallbackFunction = jest.fn()
 
-  doSomethingWithReturn(mockCallbackFunction)
+  myGreatFunctionWithUtilReturn(mockCallbackFunction)
 
   expect(mockCallbackFunction).toHaveBeenCalledWith("fake utils module")
 })

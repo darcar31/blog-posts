@@ -1,4 +1,4 @@
-import {myGreatFunction, myGreatFunctionWithUtil, myGreatFunctionWithUtilReturn, myGreatFunctionWithThirdParty, myGreatFunctionWithLargeFramework, sum} from "./index"
+import {myGreatFunction, myGreatFunctionWithUtil, myGreatFunctionWithUtilReturn, myGreatFunctionWithThirdParty, myGreatFunctionWithLargeFramework, sum} from "./functions"
 import * as utils from "./utils"
 
 it('adds 1 + 2 to equal 3', () => {

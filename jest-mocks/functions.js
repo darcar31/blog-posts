@@ -1,6 +1,6 @@
 import * as thirdPartyUtil from './thirdPartyUtil'
 import {doUtil, doUtilWithValue} from './utils'
-import { largeFrameworkFunction } from "./largeFramework"
+import {largeFrameworkFunction} from "./largeFramework"
 
 // test to make sure tests work
 export function sum(a, b) {
