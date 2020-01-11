@@ -130,7 +130,7 @@ Notes:
 2. When using default exports, `__esModule: true` must be set on the returned object.
 3. Only the test file that calls this jest.mock is affected.
 
-Now, the tests inside the same file will have the mocked utils functionality:
+Now, the tests inside the same file will have the mocked utils functionality.
 
 ``` 
 import {myGreatFunctionWithUtilReturn} from "./functions"
@@ -173,7 +173,7 @@ This setup file is just another JavaScript file that runs before any tests execu
 
 ```
 
-The thirdPartyUtil module will now be mocked in every one of your jest tests:
+The thirdPartyUtil module will now be mocked in every one of your jest tests.
 
 ``` 
 it('tests setup file mock', () => {
