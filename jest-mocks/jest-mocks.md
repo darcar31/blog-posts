@@ -226,7 +226,7 @@ Helpful Links:
 - [Function Mocking](https://jestjs.io/docs/en/mock-functions)
 - [Module Mocking](https://jestjs.io/docs/en/manual-mocks)
 - [Jest Configuration Options](https://jestjs.io/docs/en/configuration#modulenamemapper-objectstring-string)
-- [See the complete code examples on my github](https://github.com/darcar31/blog-posts/tree/master/jest-mocks)
+- [See the Complete Examples on my Github](https://github.com/darcar31/blog-posts/tree/master/jest-mocks)
 
 
 
