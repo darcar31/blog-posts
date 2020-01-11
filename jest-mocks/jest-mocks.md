@@ -212,7 +212,9 @@ This configuration will replace every file that matches the `largeFramework` reg
 ``` 
 it('tests regex file mock swap', () => {
   let mockCallbackFunction = jest.fn()
+  
   myGreatFunctionWithLargeFramework(mockCallbackFunction)
+  
   expect(mockCallbackFunction).toHaveBeenCalledWith("fake large framework file")
 })
 ```
