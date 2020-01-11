@@ -1,2 +1,1 @@
-
 export const commonlyUsedUtilFunction = () => "real"

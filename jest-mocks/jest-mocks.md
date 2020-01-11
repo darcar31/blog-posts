@@ -130,10 +130,29 @@ Notes:
 2. When using default exports, `__esModule: true` must be set on the returned object.
 3. Only the test file that calls this jest.mock is affected.
 
+Now my tests inside the same test file will have the mocked utils functionality:
+
+``` 
+import {myGreatFunctionWithUtilReturn} from "./functions"
+
+jest.mock('./utils', () => ({
+  doUtil: () => {},
+  doUtilWithValue: () => "fake utils module"
+}))
+
+it('tests with a fake module', () => {
+  let mockCallbackFunction = jest.fn()
+
+  myGreatFunctionWithUtilReturn(mockCallbackFunction)
+
+  expect(mockCallbackFunction).toHaveBeenCalledWith("fake utils module")
+})
+```
+
 ## Mocking Modules for the Entire Framework
 Perhaps you have a third party module you want to mock for your entire test framework. Jest also provides you a way to do this.
 
-Jest projects most often have a jest configuration object, which may be in your package.json or a separate jest.config.js file. One of the many properties of this config is `setupFilesAfterEnv`. This property allows you to specify a setup file that runs after the jest environment is installed. 
+Jest projects most often have a jest configuration object, which may be in your `package.json` or a separate `jest.config.js` file. One of the many properties of this config is `setupFilesAfterEnv`. This property allows you to specify a setup file that runs after the jest environment is installed. 
 
 ```
     (jest config object)
@@ -149,12 +168,22 @@ This setup file is just another JavaScript file that runs before any tests execu
     (jest.setup.js)
 
     jest.mock('thirdPartyUtil', () => ({
-      commonlyUsedUtilFunction: jest.fn().returnValue("fake third party")
+      commonlyUsedUtilFunction: jest.fn().returnValue("fake third party module")
     }))
 
 ```
 
-The thirdPartyUtil module will now be mocked in every one of your jest tests.
+The thirdPartyUtil module will now be mocked in every one of your jest tests:
+
+``` 
+it('tests setup file mock', () => {
+  let mockCallbackFunction = jest.fn()
+  
+  myGreatFunctionWithThirdParty(mockCallbackFunction)
+  
+  expect(mockCallbackFunction).toHaveBeenCalledWith("fake third party module")
+})
+```
 
  **Important reminder to be a responsible mock owner:**
  
@@ -175,9 +204,19 @@ ModuleNameMapper is useful for several cases; if you are using file aliases in y
        }
     }
 ```
-This configuration will replace every file that matches the `largeFramework` regular expression with the largeFrameworkMock.js file.
 
 Keep in mind that the ordering of this map matters; if multiple regular expressions map to a given file, the first rule is applied. 
+
+This configuration will replace every file that matches the `largeFramework` regular expression with the largeFrameworkMock.js file.
+
+``` 
+it('tests regex file mock swap', () => {
+  let mockCallbackFunction = jest.fn()
+  myGreatFunctionWithLargeFramework(mockCallbackFunction)
+  expect(mockCallbackFunction).toHaveBeenCalledWith("fake large framework file")
+})
+```
+
 
 ## How great!
 
@@ -187,6 +226,7 @@ Helpful Links:
 - [Function Mocking](https://jestjs.io/docs/en/mock-functions)
 - [Module Mocking](https://jestjs.io/docs/en/manual-mocks)
 - [Jest Configuration Options](https://jestjs.io/docs/en/configuration#modulenamemapper-objectstring-string)
+- [See the complete code examples on my github](https://github.com/darcar31/blog-posts/tree/master/jest-mocks)
 
 
 

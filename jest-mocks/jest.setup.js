@@ -1,5 +1,3 @@
-import _ from './thirdPartyUtil'
-
-jest.mock('./thirdPartyUtil', () => ({
+jest.mock('./external/thirdPartyUtil', () => ({
   commonlyUsedUtilFunction: () => "fake third party module"
 }))
