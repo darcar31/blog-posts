@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require('express')
+const bodyParser = require('body-parser')
 const { createEventAdapter } = require('@slack/events-api')
 const { createMessageAdapter } = require('@slack/interactive-messages')
 const { WebClient } = require('@slack/web-api')
 
-const port = process.env.PORT || 3000;
-const app = express();
+const port = process.env.PORT || 3000
+const app = express()
 const token = process.env.SLACK_BOT_TOKEN
 const webClient = new WebClient(token)
 
@@ -70,7 +70,7 @@ slackInteractions.viewSubmission('cute_animal_modal_submit' , async (payload) =>
 
 // Starts server
 app.listen(port, function() {
-  console.log('Bot is listening on port ' + port);
+  console.log('Bot is listening on port ' + port)
 })
 
 const messageJsonBlock = {
